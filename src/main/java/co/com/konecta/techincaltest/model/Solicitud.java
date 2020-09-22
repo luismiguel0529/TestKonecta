@@ -1,13 +1,12 @@
 package co.com.konecta.techincaltest.model;
 
 import io.swagger.v3.oas.annotations.Hidden;
-import org.hibernate.annotations.Subselect;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
+
 //@Subselect(value = "SELECT s.id,s.codigo,s.descripcion,s.resumen,s.id_empleado,e.nombre FROM solicitud s LEFT JOIN empleados e ON s.id_empleado = e.id")
 @Entity
 @Table(name = "SOLICITUD")
@@ -33,6 +32,12 @@ public class Solicitud implements Serializable {
 //    @JoinColumn(name = "ID_EMPLEADO")
     @Column(name = "ID_EMPLEADO")
     private Long idempleado;
+
+
+    @Hidden
+    @Transient
+    @Column(name = "NOMBRE",insertable = false)
+    private String nombre;
 
     public Long getId() {
         return id;
@@ -74,4 +79,11 @@ public class Solicitud implements Serializable {
         this.idempleado = idempleado;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

@@ -5,7 +5,6 @@ import co.com.konecta.techincaltest.model.Empleado;
 import co.com.konecta.techincaltest.service.IEmpleadoService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,13 +34,13 @@ public class EmpleadoController {
         return "empleados";
     }
 
-//    @Operation(summary = "Operación para buscar un empleado")
-//    @GetMapping("/listar/{id}")
-//    public ResponseEntity<Empleado> buscarEmpleado(@PathVariable Long id){
-//        return ResponseEntity
-//                .ok()
-//                .body(iEmpleadoService.findById(id));
-//    }
+    @Operation(summary = "Operación para buscar un empleado")
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<Empleado> buscarEmpleado(@PathVariable Long id){
+        return ResponseEntity
+                .ok()
+                .body(iEmpleadoService.findById(id));
+    }
 
 
     @Operation(summary = "Operación para guaradar un empleado")
@@ -61,7 +59,7 @@ public class EmpleadoController {
     @Operation(summary = "Operación para editar un empleado")
     @GetMapping("/editar/{id}")
     public String editar(@PathVariable Long id, Model model){
-        Optional<Empleado> empleado = iEmpleadoService.findById(id);
+        Empleado empleado = iEmpleadoService.findById(id);
         model.addAttribute("empleado",empleado);
         return "formempleado";
     }

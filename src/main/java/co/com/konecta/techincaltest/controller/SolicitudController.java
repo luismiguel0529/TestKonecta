@@ -2,15 +2,11 @@ package co.com.konecta.techincaltest.controller;
 
 
 import co.com.konecta.techincaltest.exception.ApiRequestException;
-import co.com.konecta.techincaltest.model.DTOSolicitud;
 import co.com.konecta.techincaltest.model.Solicitud;
-import co.com.konecta.techincaltest.model.ViewSolicitud;
+import co.com.konecta.techincaltest.service.IEmpleadoService;
 import co.com.konecta.techincaltest.service.ISolicitudService;
-import co.com.konecta.techincaltest.service.IViewSolicitudService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +25,7 @@ public class SolicitudController {
     ISolicitudService iSolicitudService;
 
     @Autowired
-    IViewSolicitudService iViewSolicitudService;
+    IEmpleadoService iEmpleadoService;
 
 //    @Operation(summary = "Operación para buscar todos las solicitudes")
 //    @GetMapping("/listar")
@@ -48,11 +44,23 @@ public class SolicitudController {
 //        return "solicitudes";
 //    }
 
+//    @Operation(summary = "Operación para buscar todos las solicitudes")
+//    @GetMapping("/listar")
+//    public String listarSolicitud(Model model){
+//        List<ViewSolicitud> solicitudes = iViewSolicitudService
+//                .findAllView()
+//                .stream()
+//                .collect(Collectors.toList());
+//        model.addAttribute("solicitudes",solicitudes);
+//        return "solicitudes";
+//    }
+
+
     @Operation(summary = "Operación para buscar todos las solicitudes")
     @GetMapping("/listar")
     public String listarSolicitud(Model model){
-        List<ViewSolicitud> solicitudes = iViewSolicitudService
-                .findAllView()
+        List<Solicitud> solicitudes = iSolicitudService
+                .findAll()
                 .stream()
                 .collect(Collectors.toList());
         model.addAttribute("solicitudes",solicitudes);

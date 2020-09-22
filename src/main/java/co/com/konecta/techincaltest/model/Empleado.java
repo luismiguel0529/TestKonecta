@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Entity
 @Table(name = "EMPLEADOS")
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 5002221912401133094L;

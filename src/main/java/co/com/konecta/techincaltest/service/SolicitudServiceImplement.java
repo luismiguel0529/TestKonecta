@@ -2,16 +2,15 @@ package co.com.konecta.techincaltest.service;
 
 import co.com.konecta.techincaltest.exception.ApiRequestException;
 import co.com.konecta.techincaltest.model.Solicitud;
-import co.com.konecta.techincaltest.model.ViewSolicitud;
 import co.com.konecta.techincaltest.repository.EmpleadoRepository;
 import co.com.konecta.techincaltest.repository.SolicitudRepository;
-import co.com.konecta.techincaltest.repository.ViewSolicitudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
-public class SolicitudServiceImplement implements ISolicitudService,IViewSolicitudService {
+public class SolicitudServiceImplement implements ISolicitudService {
 
 
     @Autowired
@@ -21,12 +20,17 @@ public class SolicitudServiceImplement implements ISolicitudService,IViewSolicit
     EmpleadoRepository empleadoRepository;
 
     @Autowired
-    ViewSolicitudRepository viewSolicitudRepository;
-
+    IEmpleadoService iEmpleadoService;
 
     @Override
     public List<Solicitud> findAll() {
-        return solicitudRepository.findAll();
+        List<Solicitud> solicitudes = solicitudRepository.findAll();
+        solicitudes.forEach(solicitud ->
+            solicitud.setNombre(iEmpleadoService
+                    .findById(solicitud.getIdempleado())
+                    .getNombre())
+        );
+        return solicitudes;
     }
 
     @Override
@@ -49,8 +53,4 @@ public class SolicitudServiceImplement implements ISolicitudService,IViewSolicit
       return null;
     }
 
-    @Override
-    public List<ViewSolicitud> findAllView() {
-        return viewSolicitudRepository.findAll();
-    }
 }
