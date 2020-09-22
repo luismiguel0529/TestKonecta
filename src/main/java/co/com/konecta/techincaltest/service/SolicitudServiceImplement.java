@@ -24,8 +24,10 @@ public class SolicitudServiceImplement implements ISolicitudService,IViewSolicit
     ViewSolicitudRepository viewSolicitudRepository;
 
 
-
-
+    @Override
+    public List<Solicitud> findAll() {
+        return solicitudRepository.findAll();
+    }
 
     @Override
     public Solicitud findById(Long id) {
@@ -48,7 +50,7 @@ public class SolicitudServiceImplement implements ISolicitudService,IViewSolicit
     }
 
     @Override
-    public List<ViewSolicitud> findAll() {
+    public List<ViewSolicitud> findAllView() {
         return viewSolicitudRepository.findAll();
     }
 }

@@ -34,10 +34,6 @@ public class Solicitud implements Serializable {
     @Column(name = "ID_EMPLEADO")
     private Long idempleado;
 
-    @Hidden
-    @Column(name = "NOMBRE",insertable = false)
-    private String nombre;
-
     public Long getId() {
         return id;
     }
@@ -78,11 +74,4 @@ public class Solicitud implements Serializable {
         this.idempleado = idempleado;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 }

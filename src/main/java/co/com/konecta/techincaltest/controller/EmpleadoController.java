@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,19 +36,19 @@ public class EmpleadoController {
         return "empleados";
     }
 
-    @Operation(summary = "Operación para buscar un empleado")
-    @GetMapping("/listar/{id}")
-    public ResponseEntity<Empleado> buscarEmpleado(@PathVariable Long id){
-        return ResponseEntity
-                .ok()
-                .body(iEmpleadoService.findById(id));
-    }
+//    @Operation(summary = "Operación para buscar un empleado")
+//    @GetMapping("/listar/{id}")
+//    public ResponseEntity<Empleado> buscarEmpleado(@PathVariable Long id){
+//        return ResponseEntity
+//                .ok()
+//                .body(iEmpleadoService.findById(id));
+//    }
+
+
     @Operation(summary = "Operación para guaradar un empleado")
     @PostMapping("/guardar")
     public String guardarEmpleado(@Valid Empleado empleado, Model model){
-        Empleado empleadoG = iEmpleadoService.save(empleado);
-
-        model.addAttribute("empleado",empleadoG);
+        iEmpleadoService.save(empleado);
         return "redirect:/empleado/listar";
     }
 
@@ -56,6 +57,16 @@ public class EmpleadoController {
         model.addAttribute("empleado",new Empleado());
         return "formempleado";
     }
+
+    @Operation(summary = "Operación para editar un empleado")
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model){
+        Optional<Empleado> empleado = iEmpleadoService.findById(id);
+        model.addAttribute("empleado",empleado);
+        return "formempleado";
+    }
+
+
 
 
 

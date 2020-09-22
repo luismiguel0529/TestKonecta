@@ -3,12 +3,13 @@ package co.com.konecta.techincaltest.service;
 import co.com.konecta.techincaltest.model.Empleado;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IEmpleadoService {
 
     public List<Empleado> findAll();
 
-    public Empleado findById(Long id);
+    public Optional<Empleado> findById(Long id);
 
     public Empleado save(Empleado empleado);
 

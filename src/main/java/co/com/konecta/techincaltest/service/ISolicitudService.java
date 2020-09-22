@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ISolicitudService {
 
-//    public List<Solicitud> findAll();
+    public List<Solicitud> findAll();
 
     public Solicitud findById(Long id);
 

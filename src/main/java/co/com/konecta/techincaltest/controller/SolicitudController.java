@@ -31,19 +31,30 @@ public class SolicitudController {
     @Autowired
     IViewSolicitudService iViewSolicitudService;
 
+//    @Operation(summary = "Operación para buscar todos las solicitudes")
+//    @GetMapping("/listar")
+//    public String listarSolicitud(Model model){
+//        List<DTOSolicitud> solicitudes = iViewSolicitudService
+//                        .findAll()
+//                        .stream()
+//                        .map(solicitud -> new DTOSolicitud()
+//                                .id(solicitud.getId())
+//                                .codigo(solicitud.getCodigo())
+//                                .descripcion(solicitud.getDescripcion())
+//                                .resumen(solicitud.getResumen())
+//                                .nombre(solicitud.getNombre()))
+//                        .collect(Collectors.toList());
+//        model.addAttribute("solicitudes",solicitudes);
+//        return "solicitudes";
+//    }
+
     @Operation(summary = "Operación para buscar todos las solicitudes")
     @GetMapping("/listar")
     public String listarSolicitud(Model model){
-        List<DTOSolicitud> solicitudes = iViewSolicitudService
-                        .findAll()
-                        .stream()
-                        .map(solicitud -> new DTOSolicitud()
-                                .id(solicitud.getId())
-                                .codigo(solicitud.getCodigo())
-                                .descripcion(solicitud.getDescripcion())
-                                .resumen(solicitud.getResumen())
-                                .nombre(solicitud.getNombre()))
-                        .collect(Collectors.toList());
+        List<ViewSolicitud> solicitudes = iViewSolicitudService
+                .findAllView()
+                .stream()
+                .collect(Collectors.toList());
         model.addAttribute("solicitudes",solicitudes);
         return "solicitudes";
     }

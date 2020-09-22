@@ -31,8 +31,8 @@ public class ViewSolicitud implements Serializable {
 
 //    @ManyToOne(optional = false)
 //    @JoinColumn(name = "ID_EMPLEADO")
-    @Column(name = "ID_EMPLEADO")
-    private Long idempleado;
+//    @Column(name = "ID_EMPLEADO")
+//    private Long idempleado;
 
     @Hidden
     @Column(name = "NOMBRE",insertable = false)
@@ -68,14 +68,6 @@ public class ViewSolicitud implements Serializable {
 
     public void setResumen(String resumen) {
         this.resumen = resumen;
-    }
-
-    public Long getIdempleado() {
-        return idempleado;
-    }
-
-    public void setIdempleado(Long idempleado) {
-        this.idempleado = idempleado;
     }
 
     public String getNombre() {

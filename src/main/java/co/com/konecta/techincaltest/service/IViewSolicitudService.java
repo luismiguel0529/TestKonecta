@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IViewSolicitudService {
 
-    public List<ViewSolicitud> findAll();
+    public List<ViewSolicitud> findAllView();
 }
