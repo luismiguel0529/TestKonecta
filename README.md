@@ -6,7 +6,8 @@ primero debe subirse el servicio.
 
  http://localhost:8080/swagger-ui.html
 
-1-Subir Postgresql en local y crear la Base de datos con el nombre : "testkonecta"
+1-Subir Postgresql en local y crear la Base de datos con el nombre : "testkonecta".
+
 2-Crear las tablas necesarias con los siguientes comandos :
 
        CREATE TABLE empleados(
