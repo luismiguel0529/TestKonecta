@@ -7,12 +7,15 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/empleado")
 public class EmpleadoController {
 
@@ -22,13 +25,14 @@ public class EmpleadoController {
 
     @Operation(summary = "Operación para buscar todos los empleados")
     @GetMapping("/listar")
-    public ResponseEntity<List<Empleado>> listareEmpleados(){
-        return ResponseEntity
-                .ok()
-                .body(iEmpleadoService
+    public String listareEmpleados(Model model){
+        List<Empleado> empleados = iEmpleadoService
                         .findAll()
                         .stream()
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList());
+
+        model.addAttribute("empleados",empleados);
+        return "empleados";
     }
 
     @Operation(summary = "Operación para buscar un empleado")
@@ -40,10 +44,17 @@ public class EmpleadoController {
     }
     @Operation(summary = "Operación para guaradar un empleado")
     @PostMapping("/guardar")
-    public ResponseEntity<Empleado> guardarEmpleado(@RequestBody Empleado empleado){
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(iEmpleadoService.save(empleado));
+    public String guardarEmpleado(@Valid Empleado empleado, Model model){
+        Empleado empleadoG = iEmpleadoService.save(empleado);
+
+        model.addAttribute("empleado",empleadoG);
+        return "redirect:/empleado/listar";
+    }
+
+    @GetMapping("/nuevo")
+    public String nuevo(Model model){
+        model.addAttribute("empleado",new Empleado());
+        return "formempleado";
     }
 
 

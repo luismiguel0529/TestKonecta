@@ -27,6 +27,11 @@ primero debe subirse el servicio.
        
 3.Iniciar proyecto
 
+4. Consumir servicios
+
+    Listar Empleado: http://localhost:8080/empleado/listar
+    Listar Solicitudes : http://localhost:8080/solicitud/listar
+
 # Herramientas
  - PostgreSQL 12.4
  - Spring Boot

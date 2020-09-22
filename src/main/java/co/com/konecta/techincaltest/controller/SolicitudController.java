@@ -9,12 +9,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestController
+@Controller
 @RequestMapping("/solicitud")
 public class SolicitudController {
 
@@ -24,10 +26,8 @@ public class SolicitudController {
 
     @Operation(summary = "Operación para buscar todos las solicitudes")
     @GetMapping("/listar")
-    public ResponseEntity<List<DTOSolicitud>> listarSolicitud(){
-        return ResponseEntity
-                .ok()
-                .body(iSolicitudService
+    public String listarSolicitud(Model model){
+        List<DTOSolicitud> solicitudes = iSolicitudService
                         .findAll()
                         .stream()
                         .map(solicitud -> new DTOSolicitud()
@@ -36,7 +36,9 @@ public class SolicitudController {
                                 .descripcion(solicitud.getDescripcion())
                                 .resumen(solicitud.getResumen())
                                 .nombre(solicitud.getNombre()))
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList());
+        model.addAttribute("solicitudes",solicitudes);
+        return "solicitudes";
     }
 
     @Operation(summary = "Operación para buscar una solicitud")
