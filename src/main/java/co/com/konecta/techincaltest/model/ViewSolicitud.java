@@ -8,12 +8,12 @@ import java.io.Serializable;
 
 
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,property = "id")
-//@Subselect(value = "SELECT s.id,s.codigo,s.descripcion,s.resumen,s.id_empleado,e.nombre FROM solicitud s LEFT JOIN empleados e ON s.id_empleado = e.id")
+@Subselect(value = "SELECT s.id,s.codigo,s.descripcion,s.resumen,s.id_empleado,e.nombre FROM solicitud s LEFT JOIN empleados e ON s.id_empleado = e.id")
 @Entity
 @Table(name = "SOLICITUD")
-public class Solicitud implements Serializable {
+public class ViewSolicitud implements Serializable {
 
-    private static final long serialVersionUID = 4002221912401133094L;
+    private static final long serialVersionUID = 4402221912401133094L;
 
     @Id
     @Column(name = "ID")

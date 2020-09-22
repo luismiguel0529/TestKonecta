@@ -4,15 +4,19 @@ package co.com.konecta.techincaltest.controller;
 import co.com.konecta.techincaltest.exception.ApiRequestException;
 import co.com.konecta.techincaltest.model.DTOSolicitud;
 import co.com.konecta.techincaltest.model.Solicitud;
+import co.com.konecta.techincaltest.model.ViewSolicitud;
 import co.com.konecta.techincaltest.service.ISolicitudService;
+import co.com.konecta.techincaltest.service.IViewSolicitudService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,10 +28,13 @@ public class SolicitudController {
     @Autowired
     ISolicitudService iSolicitudService;
 
+    @Autowired
+    IViewSolicitudService iViewSolicitudService;
+
     @Operation(summary = "Operación para buscar todos las solicitudes")
     @GetMapping("/listar")
     public String listarSolicitud(Model model){
-        List<DTOSolicitud> solicitudes = iSolicitudService
+        List<DTOSolicitud> solicitudes = iViewSolicitudService
                         .findAll()
                         .stream()
                         .map(solicitud -> new DTOSolicitud()
@@ -50,11 +57,18 @@ public class SolicitudController {
     }
     @Operation(summary = "Operación para guardar una solicitud")
     @PostMapping("/guardar")
-    public ResponseEntity<Solicitud> guardarSolicitud(@RequestBody Solicitud solicitud) throws ApiRequestException {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(iSolicitudService.save(solicitud));
+    public String guardarSolicitud(@Valid Solicitud solicitud,Model model) throws ApiRequestException {
+        Solicitud solicitudG = iSolicitudService.save(solicitud);
+        model.addAttribute("solicitud",solicitudG);
+        return "redirect:/solicitud/listar";
     }
+
+    @GetMapping("/nuevo")
+    public String nuevo(Model model){
+        model.addAttribute("solicitud",new Solicitud());
+        return "formsolicitud";
+    }
+
 
 
 
